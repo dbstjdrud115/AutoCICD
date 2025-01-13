@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+#blog는 이미지 이름을 나타낸다. git history.basicSetting참고할것.
 import os
 import requests  # HTTP 요청을 위한 모듈 추가
 import subprocess

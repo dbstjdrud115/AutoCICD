@@ -1,3 +1,4 @@
+# /blog 는 도커 이미지 이름이 바뀌는 경우 치환해야 한다.
 name: 'deploy'
 on:
   push:
@@ -63,8 +64,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ env.OWNER_LC }}/${도커이미지명}:${{ needs.makeTagAndRelease.outputs.tag_name }},
-            ghcr.io/${{ env.OWNER_LC }}/${도커이미지명}:latest
+            ghcr.io/${{ env.OWNER_LC }}/blog:${{ needs.makeTagAndRelease.outputs.tag_name }},
+            ghcr.io/${{ env.OWNER_LC }}/blog:latest
   deploy:
     runs-on: ubuntu-latest
     needs: [ buildImageAndPush ]
@@ -80,7 +81,10 @@ jobs:
           working-directory: /
           comment: Deploy
           command: |
-            mkdir -p /dockerProjects/${도커이미지명}
-            curl -o /dockerProjects/${도커이미지명}/zero_downtime_deploy.py https://raw.githubusercontent.com/${깃허브-아이디}/${깃허브-리포지터리명}/main/infraScript/zero_downtime_deploy.py
-            chmod +x /dockerProjects/${도커이미지명}/zero_downtime_deploy.py
-            /dockerProjects/${도커이미지명}/zero_downtime_deploy.py
+            mkdir -p /dockerProjects/blog
+            curl -o /dockerProjects/blog/zero_downtime_deploy.py https://raw.githubusercontent.com/${깃허브-아이디}/${깃허브-리포지터리명}/main/infraScript/zero_downtime_deploy.py
+            chmod +x /dockerProjects/blog/zero_downtime_deploy.py
+            /dockerProjects/blog/zero_downtime_deploy.py
+            
+            
+            
