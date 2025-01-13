@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import requests  # HTTP 요청을 위한 모듈 추가
 import subprocess
@@ -11,8 +13,8 @@ class ServiceManager:
         self.socat_port: int = socat_port
         self.sleep_duration: int = sleep_duration
         self.services: Dict[str, int] = {
-            '${도커이미지명}_1': 8082,
-            '${도커이미지명}_2': 8083
+            'blog_1': 8082, #{도커이미지명}_1 = blog_1
+            'blog_2': 8083  #{도커이미지명}_2 = blog_2
         }
         self.current_name: Optional[str] = None
         self.current_port: Optional[int] = None
@@ -24,7 +26,7 @@ class ServiceManager:
         cmd: str = f"ps aux | grep 'socat -t0 TCP-LISTEN:{self.socat_port}' | grep -v grep | awk '{{print $NF}}'"
         current_service: str = subprocess.getoutput(cmd)
         if not current_service:
-            self.current_name, self.current_port = '${도커이미지명}_2', self.services['${도커이미지명}_2']
+            self.current_name, self.current_port = 'blog_2', self.services['blog_2']
         else:
             self.current_port = int(current_service.split(':')[-1])
             self.current_name = next((name for name, port in self.services.items() if port == self.current_port), None)
@@ -44,7 +46,7 @@ class ServiceManager:
     # Docker 컨테이너를 실행하는 함수
     def _run_container(self, name: str, port: int) -> None:
         os.system(
-            f"docker run -d --name={name} --restart unless-stopped -p {port}:${스프링부트-운영모드-포트} -e TZ=Asia/Seoul -v /dockerProjects/${도커이미지명}/volumes/gen:/gen --pull always ghcr.io/${깃허브-아이디}/${도커이미지명}")
+            f"docker run -d --name={name} --restart unless-stopped -p {port}:8090 -e TZ=Asia/Seoul -v /dockerProjects/blog/volumes/gen:/gen --pull always ghcr.io/dbstjdrud115/blog")
 
     def _switch_port(self) -> None:
         # Socat 포트를 전환하는 함수
