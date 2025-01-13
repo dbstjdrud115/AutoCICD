@@ -37,6 +37,9 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 
 
+	//Redis의존. Redis는 asis Container와 push되어 만들어진 tobe Container가
+	//교체될때 asis에 있던 데이터를 보관하고 있어, tobe가 연결되더라도
+	//연속성이 유지될 수 있도록한다.
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.session:spring-session-data-redis'
