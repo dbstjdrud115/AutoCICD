@@ -10,6 +10,7 @@ public class Demo03Application {
 
 
     public static void main(String[] args) {
+        System.out.println("변경여부 테스트~~");
         SpringApplication.run(Demo03Application.class, args);
     }
 
